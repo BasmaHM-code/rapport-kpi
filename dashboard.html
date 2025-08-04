@@ -229,7 +229,11 @@
     AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
 
     // Charger les données dynamiques du fichier JSON
-    fetch('data.json').then(r => r.json()).then(data => {
+    fetch('data.json').then(r => {
+    if (!r.ok) throw new Error('Network response was not ok');
+    return r.json();
+  })
+.then(data => {
       // KPI principaux
       document.getElementById('reg-globale').textContent = data.regulariteGlobale + "%";
       document.getElementById('reg-globale-bar').style.width = data.regulariteGlobale + "%";
@@ -294,7 +298,10 @@
       $('#table-tnr').DataTable({ responsive: true, dom: 'frt', language: { search: "Rechercher:", zeroRecords: "Aucun enregistrement correspondant trouvé" }, order: [[1, 'desc']] });
 
       // Tu peux ajouter ici le remplissage dynamique des graphiques Chart.js si tu ajoutes les données nécessaires dans data.json
-    });
+    })  .catch(error => {
+    console.error('Erreur lors du chargement de data.json:', error);
+  });
   </script>
 </body>
+
 </html>
