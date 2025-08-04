@@ -229,79 +229,23 @@
     AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
 
     // Charger les données dynamiques du fichier JSON
-    fetch('data.json').then(r => {
-    if (!r.ok) throw new Error('Network response was not ok');
-    return r.json();
+    fetch('data.json')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
   })
-.then(data => {
-      // KPI principaux
-      document.getElementById('reg-globale').textContent = data.regulariteGlobale + "%";
-      document.getElementById('reg-globale-bar').style.width = data.regulariteGlobale + "%";
-      document.getElementById('reg-globale-bar').setAttribute('aria-valuenow', data.regulariteGlobale);
-
-      document.getElementById('ponc-globale').textContent = data.ponctualiteGlobale + "%";
-      document.getElementById('ponc-globale-bar').style.width = data.ponctualiteGlobale + "%";
-      document.getElementById('ponc-globale-bar').setAttribute('aria-valuenow', data.ponctualiteGlobale);
-
-      document.getElementById('trains-programmes').textContent = data.trainsProgrammes;
-      document.getElementById('trains-circules').textContent = "dont " + data.trainsCircules + " circulés";
-      document.getElementById('trains-retardes').textContent = data.trainsRetardes;
-      let pourc = data.trainsProgrammes > 0 ? ((data.trainsRetardes / data.trainsProgrammes) * 100).toFixed(1) : "0";
-      document.getElementById('pourcentage-retardes').textContent = "(" + pourc + "%)";
-
-      // Tableau KPI
-      let tbodyKPI = "";
-      data.kpiDetails.forEach(row => {
-        tbodyKPI += `<tr>
-          <td>${row.classification}</td>
-          <td>${row.aCirculer}</td>
-          <td>${row.circule}</td>
-          <td>${row.ponctualite}</td>
-          <td>${row.regularite}</td>
-          <td>${row.statut ? <span class="badge bg-success">${row.statut}</span> : ''}</td>
-          <td>${row.commentaire}</td>
-        </tr>`;
-      });
-      document.getElementById('tbody-kpi').innerHTML = tbodyKPI;
-
-      // Tableau Retards
-      let tbodyRetards = "";
-      if (data.retards) {
-        data.retards.forEach(row => {
-          tbodyRetards += `<tr>
-            <td>${row.classification}</td>
-            <td>${row.trainNumber}</td>
-            <td>${row.retardDepart}</td>
-            <td>${row.retardArrivee}</td>
-            <td>${row.motif}</td>
-          </tr>`;
-        });
-      }
-      document.getElementById('tbody-retards').innerHTML = tbodyRetards;
-
-      // Tableau TNR
-      let tbodyTNR = "";
-      if (data.tnrDetails) {
-        data.tnrDetails.forEach(row => {
-          tbodyTNR += `<tr>
-            <td>${row.trainNumber}</td>
-            <td>${row.retardDepart}</td>
-            <td>${row.retardArrivee}</td>
-          </tr>`;
-        });
-      }
-      document.getElementById('tbody-tnr').innerHTML = tbodyTNR;
-
-      // Initialiser DataTables après remplissage
-      $('#table-kpi').DataTable({ responsive: true, dom: 'frt', language: { search: "Rechercher:", zeroRecords: "Aucun enregistrement correspondant trouvé" }, order: [[3, 'desc']] });
-      $('#table-retards').DataTable({ responsive: true, dom: 'frt', language: { search: "Rechercher:", zeroRecords: "Aucun enregistrement correspondant trouvé" }, order: [[2, 'desc']] });
-      $('#table-tnr').DataTable({ responsive: true, dom: 'frt', language: { search: "Rechercher:", zeroRecords: "Aucun enregistrement correspondant trouvé" }, order: [[1, 'desc']] });
-
-      // Tu peux ajouter ici le remplissage dynamique des graphiques Chart.js si tu ajoutes les données nécessaires dans data.json
-    })  .catch(error => {
-    console.error('Erreur lors du chargement de data.json:', error);
-  });
+  .then(data => {
+    // Ton code pour afficher les données ici
+    console.log(data);
+  })
+  .catch(error => {
+    console.error('Erreur lors du chargement de data.json:', error);
+    alert('Erreur de chargement des données du dashboard : ' + error.message);
+  });
   </script>
 </body>
 
 </html>
+
