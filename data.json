@@ -350,24 +350,5 @@
       "retardDepart": 4,
       "retardArrivee": 8
     }
-    ,
-    {
-  "trendReg": [
-    { "date": "2025-07-29", "value": 92.5 },
-    { "date": "2025-07-30", "value": 93.1 },
-    { "date": "2025-07-31", "value": 94.0 },
-    { "date": "2025-08-01", "value": 95.2 },
-    { "date": "2025-08-02", "value": 94.7 },
-    { "date": "2025-08-03", "value": 94.2 },
-    { "date": "2025-08-04", "value": 94.2 }
-  ],
-  "retardsCauses": [
-    { "cause": "Travaux", "count": 3 },
-    { "cause": "Incident matériel", "count": 2 },
-    { "cause": "Conditions météo", "count": 1 },
-    { "cause": "Signalisation", "count": 2 },
-    { "cause": "Autres", "count": 2 }
   ]
-
 }
-
